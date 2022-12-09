@@ -6,9 +6,9 @@ using smartcollecttv.api.Models;
 
 namespace smartcollecttv.api.Data.Implementation
 {
-    public class CollectionPointRepository : BaseRepository<CollectionPoint>, ICollectionPointRepository
+    public class DriverRepository : BaseRepository<Driver>, IDriverRepository
     {
-        public CollectionPointRepository(DbContext context) : base(context.CollectionPoints)
+        public DriverRepository(DbContext context) : base(context.Drivers)
         {
         }
     }

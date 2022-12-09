@@ -1,21 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using smartcollecttv.api.Data.Context;
 using smartcollecttv.api.Data.Interfaces;
 
 namespace smartcollecttv.api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CollectionPointController : ControllerBase
+public class RouteController : ControllerBase
 {
-    private readonly ICollectionPointRepository _repo;
+    private readonly IRouteRepository _repo;
 
-    public CollectionPointController(ICollectionPointRepository repo)
+    public RouteController(IRouteRepository repo)
     {
         _repo = repo;
     }
 
-    [HttpGet(Name = "GetCollectionPoints")]
+    [HttpGet(Name = "GetRoutes")]
     public async Task<IActionResult> GetAllAsync()
     {
         return Ok(await _repo.GetAllAsync());

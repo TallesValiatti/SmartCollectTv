@@ -10,10 +10,18 @@ builder.Services.AddSingleton<DbContext>(x =>
     return new DbContext(
         builder.Configuration["AzureCosmosConnectionString"]!,
         builder.Configuration["AzureCosmosDbName"]!,
-        builder.Configuration["collectionPointContainer"]!);
+        builder.Configuration["CollectionPointContainer"]!,
+        builder.Configuration["DrivertContainer"]!,
+        builder.Configuration["IotSensortContainer"]!,
+        builder.Configuration["RoutestContainer"]!,
+        builder.Configuration["VehicleContainer"]!);
 });
 
 builder.Services.AddScoped<ICollectionPointRepository, CollectionPointRepository>();
+builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+builder.Services.AddScoped<IIotSensorRepository, IotSensorRepository>();
+builder.Services.AddScoped<IRouteRepository, RouteRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

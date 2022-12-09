@@ -6,16 +6,16 @@ namespace smartcollecttv.api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CollectionPointController : ControllerBase
+public class DriverController : ControllerBase
 {
-    private readonly ICollectionPointRepository _repo;
+    private readonly IDriverRepository _repo;
 
-    public CollectionPointController(ICollectionPointRepository repo)
+    public DriverController(IDriverRepository repo)
     {
         _repo = repo;
     }
 
-    [HttpGet(Name = "GetCollectionPoints")]
+    [HttpGet(Name = "GetDrivers")]
     public async Task<IActionResult> GetAllAsync()
     {
         return Ok(await _repo.GetAllAsync());

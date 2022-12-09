@@ -1,8 +1,7 @@
 namespace smartcollecttv.api.Models
 {
-    public class CollectionPoint
+    public class CollectionPoint : BaseModel
     {
-        public Guid Id { get; set; }
         public string? Name { get; set; }
         public Location? Location { get; set; }
         public string[]? IotSensors { get; set; }

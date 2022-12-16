@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Linq;
 using smartcollecttv.api.Data.Interfaces;
@@ -23,7 +20,37 @@ namespace smartcollecttv.api.Data.Implementation
             
             return await this.CreateData(feed);
         }
-        
+       
+        public async Task<T?> GetAsync(string id, string? partitionKey)
+        {
+            try
+            {
+                return await _container.ReadItemAsync<T>(id.ToString(), new PartitionKey(this.NormalizePartitionkey(partitionKey)));
+            }
+            catch (CosmosException ex)
+            { 
+                if(ex.StatusCode == HttpStatusCode.NotFound)
+                    return default(T);
+                else
+                    throw ex;
+            }
+        }
+
+        public async Task DeleteAsync(string id, string? partitionKey)
+        {
+            await _container.DeleteItemAsync<T>(id.ToString(), new PartitionKey(this.NormalizePartitionkey(partitionKey)));
+        }
+
+        public async Task CreateAsync(T item, string? partitionKey)
+        {
+            await _container.CreateItemAsync<T>(item, new PartitionKey(this.NormalizePartitionkey(partitionKey)));
+        }
+
+        public async Task UpdateAsync(T item, string? partitionKey)
+        {
+            await _container.UpsertItemAsync<T>(item, new PartitionKey(this.NormalizePartitionkey(partitionKey)));
+        }
+
         protected IOrderedQueryable<T> GetItemLinqQueryable()
         {
             return _container.GetItemLinqQueryable<T>();
@@ -42,5 +69,7 @@ namespace smartcollecttv.api.Data.Implementation
 
             return results;
         }
+
+        private string NormalizePartitionkey(string? partitionKey) => string.IsNullOrWhiteSpace(partitionKey) ? string.Empty : partitionKey.Trim();
     }
 }

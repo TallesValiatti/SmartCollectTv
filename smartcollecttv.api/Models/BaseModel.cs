@@ -1,7 +1,11 @@
+#nullable disable
+using Newtonsoft.Json;
+
 namespace smartcollecttv.api.Models
 {
     public class BaseModel
     {
-        public Guid Id { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
     }
 }

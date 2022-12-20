@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using smartcollecttv.api.Data.Context;
 using smartcollecttv.api.Data.Interfaces;
 using smartcollecttv.api.Dtos.Drivers;
 using smartcollecttv.api.Models;
